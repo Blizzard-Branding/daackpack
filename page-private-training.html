@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Services — Daack Pack</title>
+<link rel="stylesheet" href="daackpack-avada.css">
+<style>
+@import url("https://use.typekit.net/yeq6rmp.css");
+
+/* ── HERO ── */
+.training-hero { background: var(--dp-naval); padding: 88px 24px 72px; position: relative; overflow: hidden; }
+.training-hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg, transparent, transparent 48px, rgba(170,186,198,0.04) 48px, rgba(170,186,198,0.04) 49px); pointer-events: none; }
+.training-hero__inner { max-width: 1140px; margin: 0 auto; position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.hero-eyebrow { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dp-linwood); margin-bottom: 16px; display: block; }
+.hero-title { font-family: aptly, sans-serif; font-size: clamp(36px, 4.5vw, 56px); font-weight: 400; color: #fff; line-height: 1.08; margin: 0 0 20px; }
+.hero-title em { font-style: italic; color: var(--dp-linwood); }
+.hero-sub { font-size: 16px; font-weight: 300; color: var(--dp-upward); line-height: 1.75; margin: 0 0 32px; max-width: 420px; }
+.hero-divider { width: 48px; height: 3px; background: var(--dp-linwood); border-radius: 2px; }
+.hero-cards { display: flex; flex-direction: column; gap: 12px; }
+.hero-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(170,186,198,0.18); border-radius: 12px; padding: 18px 20px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; transition: background 0.18s, border-color 0.18s; }
+.hero-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(215,195,173,0.4); }
+.hero-card--dashed { border-style: dashed; opacity: 0.7; }
+.hero-card__tag { font-family: futura-pt, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dp-linwood); margin-bottom: 5px; display: block; }
+.hero-card__name { font-family: aptly, sans-serif; font-size: 20px; font-weight: 400; color: #fff; margin: 0 0 3px; }
+.hero-card__desc { font-size: 13px; color: var(--dp-upward); line-height: 1.5; margin: 0; }
+.hero-card__arrow { width: 30px; height: 30px; border-radius: 50%; background: rgba(215,195,173,0.15); border: 1px solid rgba(215,195,173,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--dp-linwood); transition: background 0.15s; }
+.hero-card:hover .hero-card__arrow { background: rgba(215,195,173,0.28); }
+
+/* ── STICKY NAV ── */
+.sticky-nav { position: sticky; top: 0; z-index: 100; background: var(--dp-naval); border-bottom: 1px solid rgba(170,186,198,0.15); }
+.sticky-nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.sticky-nav__links { display: flex; }
+.sticky-nav__link { font-family: futura-pt, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; padding: 15px 18px; border-bottom: 3px solid transparent; transition: color 0.18s, border-color 0.18s; display: flex; align-items: center; gap: 7px; }
+.sticky-nav__link:hover { color: rgba(255,255,255,0.8); }
+.sticky-nav__link.active { color: #fff; border-bottom-color: var(--dp-linwood); }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: background 0.18s; }
+.sticky-nav__link.active .nav-dot { background: var(--dp-linwood); }
+.sticky-nav__cta { font-family: futura-pt, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dp-naval); background: var(--dp-linwood); text-decoration: none; padding: 9px 18px; border-radius: 6px; transition: background 0.15s; white-space: nowrap; }
+.sticky-nav__cta:hover { background: var(--dp-linwood-dark); }
+
+/* ── SERVICE LABEL BARS ── */
+.svc-label { padding: 14px 24px; }
+.svc-label--warm { background: var(--dp-linwood); }
+.svc-label--dark { background: var(--dp-naval); }
+.svc-label__inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+.svc-label__num { font-family: aptly, sans-serif; font-size: 22px; font-weight: 400; line-height: 1; }
+.svc-label--warm .svc-label__num { color: rgba(45,59,73,0.22); }
+.svc-label--dark .svc-label__num { color: rgba(255,255,255,0.18); }
+.svc-label__name { font-family: futura-pt, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.svc-label--warm .svc-label__name { color: var(--dp-naval); }
+.svc-label--dark .svc-label__name { color: #fff; }
+.svc-label__sub { font-size: 13px; font-family: source-sans-3, sans-serif; margin-left: 2px; }
+.svc-label--warm .svc-label__sub { color: var(--dp-naval); opacity: 0.58; }
+.svc-label--dark .svc-label__sub { color: var(--dp-upward); opacity: 0.65; }
+
+/* ── INTRO SPLITS ── */
+.intro-split { display: grid; grid-template-columns: 1fr 1fr; }
+.intro-split__content { padding: 68px 52px; display: flex; flex-direction: column; justify-content: center; }
+.intro-split__visual { min-height: 380px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.intro-split__visual--light { background: var(--dp-upward); color: rgba(45,59,73,0.3); }
+.intro-split__visual--dark { background: var(--dp-naval-light); color: rgba(255,255,255,0.22); }
+
+.section-pill { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dp-text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.section-pill::before { content: ''; width: 20px; height: 2px; background: var(--dp-linwood); display: block; }
+.intro-title { font-family: aptly, sans-serif; font-size: clamp(22px, 2.6vw, 32px); font-weight: 400; color: var(--dp-naval); line-height: 1.2; margin: 0 0 14px; }
+.intro-title--light { color: #fff; }
+.intro-body { font-size: 15px; color: var(--dp-text-body); line-height: 1.75; margin: 0 0 22px; }
+.intro-body--light { color: var(--dp-upward); font-weight: 300; }
+.dot-list { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 8px; }
+.dot-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--dp-text-body); line-height: 1.5; }
+.dot-list li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--dp-linwood-dark); flex-shrink: 0; margin-top: 8px; }
+.dot-list--light li { color: var(--dp-upward); }
+.dot-list--light li::before { background: var(--dp-linwood); }
+
+/* Day intro extras */
+.day-tag { display: inline-flex; align-items: center; font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dp-linwood); background: rgba(215,195,173,0.12); border: 1px solid rgba(215,195,173,0.25); border-radius: 100px; padding: 6px 14px; margin-bottom: 20px; width: fit-content; }
+.day-stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 6px; }
+.day-stat { border-left: 2px solid var(--dp-linwood); padding-left: 14px; }
+.day-stat__num { font-family: aptly, sans-serif; font-size: 26px; font-weight: 400; color: #fff; display: block; line-height: 1; margin-bottom: 3px; }
+.day-stat__label { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dp-upward); opacity: 0.65; }
+
+/* ── STEP GRIDS ── */
+.how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(170,186,198,0.25); border: 1px solid rgba(170,186,198,0.25); border-radius: 12px; overflow: hidden; }
+.how-steps--4 { grid-template-columns: repeat(4, 1fr); }
+.how-step { background: #fff; padding: 28px 24px; }
+.how-step__num { font-family: aptly, sans-serif; font-size: 38px; font-weight: 400; color: rgba(45,59,73,0.1); line-height: 1; margin-bottom: 12px; }
+.how-step__title { font-family: futura-pt, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dp-naval); margin-bottom: 7px; }
+.how-step__text { font-size: 13px; color: var(--dp-text-body); line-height: 1.65; margin: 0; }
+
+/* ── WEEK FLOW ── */
+.week-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(170,186,198,0.25); border: 1px solid rgba(170,186,198,0.25); border-radius: 12px; overflow: hidden; }
+.week-block { background: #fff; padding: 24px 20px; }
+.week-block--hl { background: var(--dp-naval); }
+.week-block__day { font-family: futura-pt, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dp-linwood-dark); margin-bottom: 8px; display: block; }
+.week-block--hl .week-block__day { color: var(--dp-linwood); }
+.week-block__title { font-family: aptly, sans-serif; font-size: 16px; font-weight: 400; color: var(--dp-naval); margin-bottom: 7px; line-height: 1.2; }
+.week-block--hl .week-block__title { color: #fff; }
+.week-block__text { font-size: 13px; color: var(--dp-text-body); line-height: 1.6; margin: 0; }
+.week-block--hl .week-block__text { color: var(--dp-upward); }
+
+/* ── PRICING CARDS (Private) ── */
+.pricing-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pricing-card { background: #fff; border: 1px solid rgba(170,186,198,0.4); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+.pricing-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(45,59,73,0.1); }
+.pricing-card--feat { border: 2px solid var(--dp-naval); }
+.pc-top { padding: 24px 22px 16px; flex: 1; }
+.pricing-card--feat .pc-top { background: var(--dp-naval); }
+.pc-label { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dp-text-muted); margin-bottom: 9px; display: block; }
+.pricing-card--feat .pc-label { color: var(--dp-upward); }
+.pc-name { font-family: aptly, sans-serif; font-size: 21px; font-weight: 400; color: var(--dp-naval); margin: 0 0 12px; }
+.pricing-card--feat .pc-name { color: #fff; }
+.pc-price { font-family: aptly, sans-serif; font-size: 40px; font-weight: 400; color: var(--dp-naval); line-height: 1; margin-bottom: 4px; }
+.pricing-card--feat .pc-price { color: #fff; }
+.pc-per { font-family: futura-pt, sans-serif; font-size: 12px; color: var(--dp-text-muted); letter-spacing: 0.04em; display: block; margin-bottom: 12px; }
+.pricing-card--feat .pc-per { color: var(--dp-upward); }
+.pc-desc { font-size: 13px; color: var(--dp-text-body); line-height: 1.6; margin: 0; }
+.pricing-card--feat .pc-desc { color: var(--dp-upward); }
+.pc-foot { padding: 13px 22px; border-top: 1px solid rgba(170,186,198,0.2); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.pricing-card--feat .pc-foot { border-top-color: rgba(255,255,255,0.1); }
+.save-badge { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; background: #dff0e8; color: #1a5c3a; }
+
+/* ── DAY TRAINING TIERS ── */
+.day-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.day-tier { background: #fff; border: 1px solid rgba(170,186,198,0.4); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+.day-tier:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(45,59,73,0.1); }
+.day-tier--feat { border: 2px solid var(--dp-naval); }
+.dt-head { padding: 22px 22px 16px; border-bottom: 1px solid rgba(170,186,198,0.2); }
+.day-tier--feat .dt-head { background: var(--dp-naval); border-bottom-color: rgba(255,255,255,0.1); }
+.dt-badge { display: inline-block; font-family: futura-pt, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; background: var(--dp-linwood); color: var(--dp-naval); margin-bottom: 10px; }
+.day-tier--feat .dt-badge { background: rgba(215,195,173,0.2); color: var(--dp-linwood); }
+.dt-name { font-family: aptly, sans-serif; font-size: 20px; font-weight: 400; color: var(--dp-naval); margin: 0 0 3px; }
+.day-tier--feat .dt-name { color: #fff; }
+.dt-freq { font-family: futura-pt, sans-serif; font-size: 12px; color: var(--dp-text-muted); font-weight: 500; letter-spacing: 0.04em; }
+.day-tier--feat .dt-freq { color: var(--dp-upward); }
+.dt-body { padding: 16px 22px; flex: 1; }
+.dt-desc { font-size: 13px; color: var(--dp-text-body); line-height: 1.65; margin: 0 0 12px; }
+.dt-feats { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+.dt-feats li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--dp-text-body); line-height: 1.5; }
+.dt-feats li svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; stroke: var(--dp-linwood-dark); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.dt-foot { padding: 13px 22px; border-top: 1px solid rgba(170,186,198,0.2); display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.dt-price { font-family: aptly, sans-serif; font-size: 24px; font-weight: 400; color: var(--dp-naval); }
+.dt-dep { font-family: futura-pt, sans-serif; font-size: 11px; color: var(--dp-text-muted); letter-spacing: 0.04em; display: block; margin-top: 2px; }
+
+/* ── IDEAL FOR ── */
+.ideal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ideal-card { background: #fff; border: 1px solid rgba(170,186,198,0.35); border-radius: 12px; padding: 24px; }
+.ideal-card__label { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dp-text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.ideal-card__label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--dp-linwood); border-radius: 2px; }
+.ideal-card__title { font-family: aptly, sans-serif; font-size: 18px; font-weight: 400; color: var(--dp-naval); margin: 0 0 10px; }
+.arrow-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+.arrow-list li { font-size: 13px; color: var(--dp-text-body); line-height: 1.5; display: flex; align-items: flex-start; gap: 8px; }
+.arrow-list li::before { content: '→'; color: var(--dp-linwood-dark); font-weight: 600; flex-shrink: 0; }
+
+/* ── ADDONS ── */
+.addons-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.addon-chip { background: #fff; border: 1px solid rgba(170,186,198,0.4); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex: 1; min-width: 170px; }
+.addon-chip__name { font-family: futura-pt, sans-serif; font-size: 13px; font-weight: 600; color: var(--dp-naval); letter-spacing: 0.02em; }
+.addon-chip__price { font-family: aptly, sans-serif; font-size: 16px; color: var(--dp-naval); flex-shrink: 0; }
+
+/* ── CHECKLIST ── */
+.checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.check-group { display: flex; flex-direction: column; gap: 6px; }
+.check-item { display: flex; align-items: flex-start; gap: 11px; padding: 12px 15px; border-radius: 8px; background: var(--dp-white); border: 1px solid rgba(170,186,198,0.3); font-size: 14px; color: var(--dp-naval); line-height: 1.45; }
+.check-item svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; stroke: #1a8a50; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── SERVICE DIVIDER ── */
+.service-divider { height: 4px; background: linear-gradient(to right, var(--dp-naval) 50%, var(--dp-linwood) 50%); }
+
+/* ── COMPARISON TABLE ── */
+.comparison-wrap { background: #fff; border: 1px solid rgba(170,186,198,0.35); border-radius: 12px; overflow: hidden; }
+.comparison-table { width: 100%; border-collapse: collapse; }
+.comparison-table th { padding: 18px 22px; text-align: left; border-bottom: 2px solid rgba(170,186,198,0.3); vertical-align: bottom; }
+.comparison-table th:first-child { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dp-text-muted); width: 28%; }
+.th-service { font-family: aptly, sans-serif; font-size: 18px; font-weight: 400; color: var(--dp-naval); margin: 0 0 3px; }
+.th-sub { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dp-text-muted); display: block; }
+.th-feat { background: var(--dp-naval); }
+.th-feat .th-service { color: #fff; }
+.th-feat .th-sub { color: var(--dp-upward); }
+.comparison-table td { padding: 12px 22px; font-size: 13px; color: var(--dp-text-body); border-bottom: 1px solid rgba(170,186,198,0.12); vertical-align: middle; }
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table td:first-child { font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dp-naval); background: rgba(238,234,224,0.5); }
+.comparison-table td.feat-col { background: rgba(45,59,73,0.03); font-weight: 500; color: var(--dp-naval); }
+.comparison-table tr:hover td { background: rgba(238,234,224,0.4); }
+.comparison-table tr:hover .feat-col { background: rgba(45,59,73,0.06); }
+.comparison-table tr:hover td:first-child { background: rgba(238,234,224,0.7); }
+
+/* ── POLICIES ── */
+.policy-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.policy-card { background: #fff; border: 1px solid rgba(170,186,198,0.35); border-radius: 12px; padding: 22px; border-top: 3px solid var(--dp-linwood); }
+.policy-card--warn { border-top-color: #c4aa92; }
+.policy-card__title { font-family: futura-pt, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--dp-naval); margin-bottom: 8px; }
+.policy-card__text { font-size: 13px; color: var(--dp-text-body); line-height: 1.65; margin: 0; }
+.travel-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid rgba(170,186,198,0.3); }
+.travel-table th { background: var(--dp-naval); color: #fff; font-family: futura-pt, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 11px 18px; text-align: left; }
+.travel-table td { padding: 11px 18px; font-size: 14px; color: var(--dp-text-body); border-bottom: 1px solid rgba(170,186,198,0.12); }
+.travel-table tr:last-child td { border-bottom: none; }
+.travel-table td:first-child { color: var(--dp-naval); font-weight: 500; }
+.travel-table td:last-child { font-family: aptly, sans-serif; font-size: 15px; color: var(--dp-naval); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .training-hero__inner { grid-template-columns: 1fr; gap: 36px; }
+  .intro-split { grid-template-columns: 1fr; }
+  .intro-split__content { padding: 48px 24px; }
+  .how-steps { grid-template-columns: 1fr 1fr; }
+  .how-steps--4 { grid-template-columns: 1fr 1fr; }
+  .week-flow { grid-template-columns: 1fr 1fr; }
+  .pricing-cards { grid-template-columns: 1fr; }
+  .day-tiers { grid-template-columns: 1fr; }
+  .ideal-grid { grid-template-columns: 1fr; }
+  .checklist-grid { grid-template-columns: 1fr; gap: 24px; }
+  .policy-row { grid-template-columns: 1fr; }
+  .sticky-nav__cta { display: none; }
+}
+@media (max-width: 600px) {
+  .training-hero { padding: 56px 20px 48px; }
+  .how-steps { grid-template-columns: 1fr; }
+  .week-flow { grid-template-columns: 1fr; }
+  .day-stats { flex-direction: column; gap: 14px; }
+  .sticky-nav__link { padding: 13px 10px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div class="dp-page">
+
+<!-- ════ HERO ════ -->
+<section class="training-hero">
+  <div class="training-hero__inner">
+    <div>
+      <span class="hero-eyebrow">Training Services</span>
+      <h1 class="hero-title">Two Ways to<br><em>Train Your Dog</em></h1>
+      <p class="hero-sub">Both services follow your onboarding consultation. The difference is who does the hands-on work — and how often we meet.</p>
+      <div class="hero-divider"></div>
+    </div>
+    <div class="hero-cards">
+      <a href="#private" class="hero-card">
+        <div>
+          <span class="hero-card__tag">You're There</span>
+          <p class="hero-card__name">Private Training</p>
+          <p class="hero-card__desc">1-on-1 sessions. You handle your dog; your trainer coaches you.</p>
+        </div>
+        <div class="hero-card__arrow">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </a>
+      <a href="#day" class="hero-card">
+        <div>
+          <span class="hero-card__tag">We Lead</span>
+          <p class="hero-card__name">Day Training</p>
+          <p class="hero-card__desc">Intensive &amp; trainer-led. We work with your dog; you learn the transition.</p>
+        </div>
+        <div class="hero-card__arrow">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </a>
+      <a href="#comparison" class="hero-card hero-card--dashed">
+        <div>
+          <span class="hero-card__tag">Not sure?</span>
+          <p class="hero-card__name" style="font-size:17px;">Compare Side by Side</p>
+          <p class="hero-card__desc">See the full breakdown of what's different.</p>
+        </div>
+        <div class="hero-card__arrow">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STICKY NAV ════ -->
+<nav class="sticky-nav" id="sticky-nav">
+  <div class="sticky-nav__inner">
+    <div class="sticky-nav__links">
+      <a href="#private"    class="sticky-nav__link active" id="nav-private"><span class="nav-dot"></span>Private Training</a>
+      <a href="#day"        class="sticky-nav__link"        id="nav-day"><span class="nav-dot"></span>Day Training</a>
+      <a href="#comparison" class="sticky-nav__link"        id="nav-comparison"><span class="nav-dot"></span>Compare</a>
+      <a href="#policies"   class="sticky-nav__link"        id="nav-policies"><span class="nav-dot"></span>Policies</a>
+    </div>
+    <a href="/onboarding-services" class="sticky-nav__cta">Book a Free Screening</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════ 01 — PRIVATE TRAINING ══════════════════ -->
+<div id="private">
+  <div class="svc-label svc-label--warm">
+    <div class="svc-label__inner">
+      <span class="svc-label__num">01</span>
+      <span class="svc-label__name">Private Training</span>
+      <span class="svc-label__sub">— You're there for every session</span>
+    </div>
+  </div>
+
+  <div class="intro-split">
+    <div class="intro-split__content" style="background:var(--dp-alabaster);">
+      <span class="section-pill">Private Training</span>
+      <h2 class="intro-title">You Build the Skills.<br>We Coach You Through It.</h2>
+      <p class="intro-body">Private sessions are the core follow-up after your consultation. You handle your dog, and your trainer coaches you every step of the way. You are present and actively training at every session — this is a skill-building service for you and your dog together.</p>
+      <ul class="dot-list">
+        <li>You work directly with your dog; trainer coaches your handling</li>
+        <li>Focus on 2–3 protocols from your custom consultation plan</li>
+        <li>Held at our Animal Behavior Center, in-home, or virtually</li>
+        <li>Approach adapts as your dog's needs and progress evolve</li>
+      </ul>
+      <a href="/onboarding-services" class="dp-btn dp-btn--primary" style="align-self:flex-start;">Start with Onboarding</a>
+    </div>
+    <div class="intro-split__visual intro-split__visual--light">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="16" r="8" stroke="rgba(45,59,73,0.28)" stroke-width="1.5"/><path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="rgba(45,59,73,0.28)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Trainer + client session photo</span>
+    </div>
+  </div>
+
+  <section class="dp-section dp-section--white">
+    <div class="dp-container">
+      <span class="section-pill">Each Session</span>
+      <h2 class="dp-section-title" style="margin-bottom:26px;">How a Private Session Flows</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <p class="how-step__num">01</p>
+          <p class="how-step__title">Review Your Plan</p>
+          <p class="how-step__text">Your trainer arrives with your custom plan. You'll revisit where you left off and set the focus for today's session.</p>
+        </div>
+        <div class="how-step">
+          <p class="how-step__num">02</p>
+          <p class="how-step__title">Train Together</p>
+          <p class="how-step__text">You handle your dog through 2–3 protocols while your trainer coaches your technique and reads your dog's responses.</p>
+        </div>
+        <div class="how-step">
+          <p class="how-step__num">03</p>
+          <p class="how-step__title">Leave with Tools</p>
+          <p class="how-step__text">Every session ends with practice homework. Skills build on each other and adjust as your dog progresses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dp-section dp-section--alabaster">
+    <div class="dp-container">
+      <div class="dp-section-header">
+        <span class="dp-eyebrow">Pricing</span>
+        <h2 class="dp-section-title">Session Options</h2>
+        <p class="dp-section-body">All sessions include taxes and fees, travel up to 15 minutes, limited email support, and access to our online community.</p>
+        <span class="dp-section-header__rule"></span>
+      </div>
+      <div class="pricing-cards">
+        <div class="pricing-card">
+          <div class="pc-top">
+            <span class="pc-label">Single</span>
+            <h3 class="pc-name">Individual Session</h3>
+            <p class="pc-price">$165</p>
+            <span class="pc-per">per session</span>
+            <p class="pc-desc">One focused session with your family and a trainer. Good for continuing clients or trying out the format.</p>
+          </div>
+          <div class="pc-foot">
+            <span style="font-size:12px; color:var(--dp-text-muted);">No package needed</span>
+            <a href="/contact" class="dp-btn dp-btn--secondary dp-btn--sm">Book</a>
+          </div>
+        </div>
+        <div class="pricing-card">
+          <div class="pc-top">
+            <span class="pc-label">Package</span>
+            <h3 class="pc-name">4-Session Package</h3>
+            <p class="pc-price">$630</p>
+            <span class="pc-per">$157.50 per session</span>
+            <p class="pc-desc">Four sessions at a savings. Installment plan available. Valid 6 months from purchase.</p>
+          </div>
+          <div class="pc-foot">
+            <span class="save-badge">Save $30</span>
+            <a href="/contact" class="dp-btn dp-btn--secondary dp-btn--sm">Book</a>
+          </div>
+        </div>
+        <div class="pricing-card pricing-card--feat">
+          <div class="pc-top">
+            <span class="pc-label">Best Value</span>
+            <h3 class="pc-name">8-Session Package</h3>
+            <p class="pc-price">$1,200</p>
+            <span class="pc-per">$150 per session</span>
+            <p class="pc-desc">Best for sustained progress on complex cases. Installment plan available. Valid 6 months from purchase.</p>
+          </div>
+          <div class="pc-foot">
+            <span class="save-badge">Save $120</span>
+            <a href="/contact" class="dp-btn dp-btn--accent dp-btn--sm">Book</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:22px;">
+        <p style="font-family:var(--dp-font-sub); font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--dp-text-muted); margin-bottom:12px;">Add-ons &amp; Fees</p>
+        <div class="addons-row">
+          <div class="addon-chip"><span class="addon-chip__name">Weekly Notes</span><span class="addon-chip__price">$25/wk</span></div>
+          <div class="addon-chip"><span class="addon-chip__name">Rescheduling Fee</span><span class="addon-chip__price">$60/hr</span></div>
+          <div class="addon-chip"><span class="addon-chip__name">Travel Fee (min)</span><span class="addon-chip__price">$20+</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dp-section dp-section--white">
+    <div class="dp-container">
+      <div class="checklist-grid">
+        <div>
+          <span class="section-pill">Before You Start</span>
+          <h2 class="dp-feature-row__title" style="margin-bottom:16px;">Onboarding Checklist</h2>
+          <p style="font-size:14px; color:var(--dp-text-body); line-height:1.7; margin-bottom:18px;">Private sessions are only available after completing onboarding. Here's what needs to happen first:</p>
+          <div class="check-group">
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Discovery Screening and/or Mini Meeting</div>
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Initial Consultation (2 hr), Extended (3 hr), or Modified Consultation (90 min)</div>
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Received your Consultation Notes</div>
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Selected your follow-up services — you're here!</div>
+          </div>
+          <a href="/onboarding-services" class="dp-btn dp-btn--secondary" style="margin-top:18px;">View Onboarding Services</a>
+        </div>
+        <div>
+          <span class="section-pill">Scheduling</span>
+          <h2 class="dp-feature-row__title" style="margin-bottom:16px;">How Booking Works</h2>
+          <p style="font-size:14px; color:var(--dp-text-body); line-height:1.7; margin-bottom:18px;">Once purchased, our team reaches out to schedule 1–2 sessions at a time. We stay flexible around your life.</p>
+          <div class="check-group">
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>We send a calendar link to choose your first session</div>
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Email confirmation sent once your time is selected</div>
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>In-home sessions require travel fee paid before confirmation</div>
+            <div class="check-item"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Sessions valid for 6 months from date of purchase</div>
+          </div>
+          <div class="dp-calendar-placeholder" style="margin-top:18px;">
+            <svg class="dp-calendar-placeholder__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span class="dp-calendar-placeholder__label">Scheduling Calendar</span>
+            <span class="dp-calendar-placeholder__sub">Embed Calendly, Acuity, or scheduling widget here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /#private -->
+
+
+<div class="service-divider"></div>
+
+
+<!-- ══════════════════ 02 — DAY TRAINING ══════════════════ -->
+<div id="day">
+  <div class="svc-label svc-label--dark">
+    <div class="svc-label__inner">
+      <span class="svc-label__num">02</span>
+      <span class="svc-label__name">Day Training</span>
+      <span class="svc-label__sub">— We lead; you learn the transition</span>
+    </div>
+  </div>
+
+  <div class="intro-split" style="background:var(--dp-naval); position:relative; overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(-55deg,transparent,transparent 48px,rgba(170,186,198,0.04) 48px,rgba(170,186,198,0.04) 49px);pointer-events:none;"></div>
+    <div class="intro-split__content" style="position:relative;">
+      <span class="day-tag">Intensive Support</span>
+      <h2 class="intro-title intro-title--light">We Work with Your Dog.<br>You Learn the Transition.</h2>
+      <p class="intro-body intro-body--light">Day Training is fundamentally different from private sessions. Our trainer works directly with your dog up to 4 times a week — you don't need to be present for most sessions. One dedicated session per week transfers those skills back to you.</p>
+      <ul class="dot-list dot-list--light" style="margin-bottom:28px;">
+        <li>Trainer does the hands-on work directly with your dog</li>
+        <li>You attend one mandatory transition session per week</li>
+        <li>Weekly written notes after every transition session</li>
+        <li>Webinar access included to support your learning</li>
+      </ul>
+      <div class="day-stats">
+        <div class="day-stat"><span class="day-stat__num">4×</span><span class="day-stat__label">Per week</span></div>
+        <div class="day-stat"><span class="day-stat__num">4 wks</span><span class="day-stat__label">Standard length</span></div>
+        <div class="day-stat"><span class="day-stat__num">1×</span><span class="day-stat__label">Your transition/wk</span></div>
+      </div>
+    </div>
+    <div class="intro-split__visual intro-split__visual--dark" style="position:relative;">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="16" r="8" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/><path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Day training session photo</span>
+    </div>
+  </div>
+
+  <section class="dp-section dp-section--white">
+    <div class="dp-container">
+      <span class="section-pill">Standard Program</span>
+      <h2 class="dp-section-title" style="margin-bottom:26px;">What a Week Looks Like</h2>
+      <div class="week-flow">
+        <div class="week-block">
+          <span class="week-block__day">Mon / Tue / Wed</span>
+          <h3 class="week-block__title">Trainer + Your Dog</h3>
+          <p class="week-block__text">Your trainer works 1-on-1 with your dog in your home. You don't need to be there — we handle introducing and reinforcing new skills.</p>
+        </div>
+        <div class="week-block week-block--hl">
+          <span class="week-block__day">Thursday — Required</span>
+          <h3 class="week-block__title">Transition Session</h3>
+          <p class="week-block__text">You join the session. Your trainer walks you through what was taught that week so the skills transfer to you. This is mandatory every week.</p>
+        </div>
+        <div class="week-block">
+          <span class="week-block__day">End of Week</span>
+          <h3 class="week-block__title">Weekly Notes</h3>
+          <p class="week-block__text">Written notes cover what was taught, your dog's progress, and what to practice before next week.</p>
+        </div>
+        <div class="week-block">
+          <span class="week-block__day">After 4 Weeks</span>
+          <h3 class="week-block__title">Wrap-Up</h3>
+          <p class="week-block__text">You leave with a trained dog, the skills to maintain progress, and a clear roadmap. Additional weeks can be added if needed.</p>
+        </div>
+      </div>
+      <div class="dp-callout dp-callout--info" style="margin-top:18px;">
+        <svg class="dp-callout__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16v.5"/></svg>
+        <div class="dp-callout__body">
+          <span class="dp-callout__title">Attendance encouraged — transition sessions are the only requirement</span>
+          We welcome you at all sessions. The mandatory session each week is the transition — that's where skills transfer back to you. Virtual and Mini programs require client presence at all sessions.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dp-section dp-section--alabaster">
+    <div class="dp-container">
+      <span class="section-pill">Is Day Training right for you?</span>
+      <h2 class="dp-section-title" style="margin-bottom:26px;">Best Suited For</h2>
+      <div class="ideal-grid">
+        <div class="ideal-card">
+          <span class="ideal-card__label">Standard &amp; Mini Day Training</span>
+          <h3 class="ideal-card__title">In-Person Cases</h3>
+          <ul class="arrow-list">
+            <li>Leash reactivity, barking, lunging</li>
+            <li>Stranger danger or dog-directed behaviors</li>
+            <li>Obedience-focused or general behavior cases</li>
+            <li>Families with limited time for frequent sessions</li>
+            <li>Complex cases needing high-frequency trainer contact</li>
+          </ul>
+        </div>
+        <div class="ideal-card">
+          <span class="ideal-card__label">Virtual Day Training</span>
+          <h3 class="ideal-card__title">Remote or Specific Cases</h3>
+          <ul class="arrow-list">
+            <li>Separation anxiety</li>
+            <li>Cooperative care and vet-preparation</li>
+            <li>Owner-directed conflict</li>
+            <li>Out-of-area clients</li>
+            <li>Cases best addressed in the dog's natural environment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dp-section dp-section--white">
+    <div class="dp-container">
+      <div class="dp-section-header">
+        <span class="dp-eyebrow">Pricing</span>
+        <h2 class="dp-section-title">Day Training Programs</h2>
+        <p class="dp-section-body">All programs require a completed Consultation before starting. A deposit confirms your spot and includes the assessment &amp; prep session.</p>
+        <span class="dp-section-header__rule"></span>
+      </div>
+      <div class="day-tiers">
+        <div class="day-tier day-tier--feat">
+          <div class="dt-head">
+            <span class="dt-badge">Most Comprehensive</span>
+            <h3 class="dt-name">Standard Day Training</h3>
+            <p class="dt-freq">4 days/week · 4 weeks · In-Person</p>
+          </div>
+          <div class="dt-body">
+            <p class="dt-desc">Trainer works with your dog 3 days/week in your home, plus one mandatory transition session with you each week.</p>
+            <ul class="dt-feats">
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>16 one-hour sessions</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Assessment &amp; prep session included</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Custom training plan created</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Weekly notes &amp; live training plan</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Webinar support included</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Travel up to 30 min included</li>
+            </ul>
+          </div>
+          <div class="dt-foot">
+            <div><span class="dt-price">$2,685</span><span class="dt-dep">$300 deposit to start</span></div>
+            <a href="/contact" class="dp-btn dp-btn--accent dp-btn--sm">Get Started</a>
+          </div>
+        </div>
+        <div class="day-tier">
+          <div class="dt-head">
+            <span class="dt-badge">Remote-Friendly</span>
+            <h3 class="dt-name">Virtual Day Training</h3>
+            <p class="dt-freq">4 days/week · 4 weeks · Virtual</p>
+          </div>
+          <div class="dt-body">
+            <p class="dt-desc">Same intensive frequency — fully virtual. 3×30 min + 1×60 min per week. Client present for all sessions.</p>
+            <ul class="dt-feats">
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>12×30-min + 4×1-hr sessions</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>30-min assessment call</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Custom training plan created</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Weekly notes &amp; live training plan</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Webinar support included</li>
+            </ul>
+          </div>
+          <div class="dt-foot">
+            <div><span class="dt-price">$1,590</span><span class="dt-dep">$150 deposit to start</span></div>
+            <a href="/contact" class="dp-btn dp-btn--secondary dp-btn--sm">Get Started</a>
+          </div>
+        </div>
+        <div class="day-tier">
+          <div class="dt-head">
+            <span class="dt-badge">Budget-Friendly</span>
+            <h3 class="dt-name">Mini Day Training</h3>
+            <p class="dt-freq">2 days/week · 4 weeks · Flexible</p>
+          </div>
+          <div class="dt-body">
+            <p class="dt-desc">Day Training structure at a reduced pace. Ideal for transitioning from intensive support. In-person, virtual, or hybrid.</p>
+            <ul class="dt-feats">
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>8 one-hour sessions</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>15–30 min assessment call</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Custom training plan created</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Weekly notes included</li>
+              <li><svg viewBox="0 0 16 16"><path d="M13 4L6 11 3 8"/></svg>Travel up to 30 min included</li>
+            </ul>
+          </div>
+          <div class="dt-foot">
+            <div><span class="dt-price">$1,400</span><span class="dt-dep">$150 deposit to start</span></div>
+            <a href="/contact" class="dp-btn dp-btn--secondary dp-btn--sm">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:22px; background:var(--dp-alabaster); border:1px solid rgba(170,186,198,0.4); border-radius:10px; padding:16px 20px;">
+        <p style="font-family:var(--dp-font-sub); font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--dp-text-muted); margin-bottom:12px;">Additional Weeks (Add-On)</p>
+        <div class="addons-row">
+          <div class="addon-chip"><span class="addon-chip__name">Standard — per week</span><span class="addon-chip__price">$620</span></div>
+          <div class="addon-chip"><span class="addon-chip__name">Virtual — per week</span><span class="addon-chip__price">$360</span></div>
+          <div class="addon-chip"><span class="addon-chip__name">Mini — per week</span><span class="addon-chip__price">$320</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dp-section dp-section--alabaster">
+    <div class="dp-container dp-container--mid">
+      <span class="section-pill">Getting Started</span>
+      <h2 class="dp-section-title" style="margin-bottom:26px;">What Happens After You Decide</h2>
+      <div class="how-steps how-steps--4">
+        <div class="how-step">
+          <p class="how-step__num">01</p>
+          <p class="how-step__title">Deposit Invoice</p>
+          <p class="how-step__text">We send a deposit invoice ($300 Standard / $150 Virtual &amp; Mini). Payment confirms your spot and includes the assessment session.</p>
+        </div>
+        <div class="how-step">
+          <p class="how-step__num">02</p>
+          <p class="how-step__title">Training Outline</p>
+          <p class="how-step__text">We confirm your 4-week schedule, session locations, add-ons, and applicable travel fees in a written outline.</p>
+        </div>
+        <div class="how-step">
+          <p class="how-step__num">03</p>
+          <p class="how-step__title">Final Invoice</p>
+          <p class="how-step__text">We send the total with your deposit applied. Installment plans available for all Day Training programs.</p>
+        </div>
+        <div class="how-step">
+          <p class="how-step__num">04</p>
+          <p class="how-step__title">Start Training</p>
+          <p class="how-step__text">Your trainer gets to work. Come to as many sessions as you can — and don't miss your weekly transition session.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /#day -->
+
+
+<!-- ══════════════════ COMPARISON ══════════════════ -->
+<div id="comparison">
+  <div class="service-divider"></div>
+  <section class="dp-section dp-section--white">
+    <div class="dp-container">
+      <div class="dp-section-header dp-section-header--centered">
+        <span class="dp-eyebrow">Side by Side</span>
+        <h2 class="dp-section-title">Private Training vs. Day Training</h2>
+        <p class="dp-section-body" style="max-width:500px; margin:0 auto 8px;">Not sure which service fits? This table covers every key difference.</p>
+        <span class="dp-section-header__rule" style="margin:16px auto 0;"></span>
+      </div>
+      <div class="comparison-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th><p class="th-service">Private Training</p><span class="th-sub">You're There</span></th>
+              <th class="th-feat"><p class="th-service">Day Training</p><span class="th-sub">We Lead</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Who handles your dog</td><td>You — trainer coaches your technique</td><td class="feat-col">The trainer, directly</td></tr>
+            <tr><td>Client presence</td><td>Required at every session</td><td class="feat-col">Required at weekly transition; optional for trainer-only sessions</td></tr>
+            <tr><td>Frequency</td><td>Your choice — individual or packages</td><td class="feat-col">Up to 4 sessions/week for 4 weeks</td></tr>
+            <tr><td>Skill transfer</td><td>Hands-on at every session</td><td class="feat-col">Dedicated weekly transition session</td></tr>
+            <tr><td>Best for</td><td>All cases; owners building hands-on skills</td><td class="feat-col">Reactive or complex cases; limited owner availability; faster goals</td></tr>
+            <tr><td>Format options</td><td>In-facility, in-home, or virtual</td><td class="feat-col">In-person, virtual, or hybrid (Mini)</td></tr>
+            <tr><td>Weekly notes</td><td>Add-on ($25/wk)</td><td class="feat-col">Included in all programs</td></tr>
+            <tr><td>Starting price</td><td>$165/session</td><td class="feat-col">From $1,400 (Mini program)</td></tr>
+            <tr><td>Installment plans</td><td>4 &amp; 8 session packages</td><td class="feat-col">All programs</td></tr>
+            <tr><td>Onboarding required</td><td>Yes</td><td class="feat-col">Yes — Consultation required before starting</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ══════════════════ POLICIES ══════════════════ -->
+<div id="policies">
+  <section class="dp-section dp-section--alabaster">
+    <div class="dp-container">
+      <div class="dp-section-header">
+        <span class="dp-eyebrow">Policies</span>
+        <h2 class="dp-section-title">What You Need to Know</h2>
+        <span class="dp-section-header__rule"></span>
+      </div>
+      <div class="policy-row">
+        <div class="policy-card policy-card--warn">
+          <p class="policy-card__title">No-Rescheduling Policy</p>
+          <p class="policy-card__text">Consistent scheduling is critical for long-term progress. Genuine emergencies with 12+ hours notice may be accommodated with a $60/hr rescheduling fee.</p>
+        </div>
+        <div class="policy-card">
+          <p class="policy-card__title">Sessions Are Non-Refundable</p>
+          <p class="policy-card__text">All services are valid for 6 months from initial purchase. Sessions are non-refundable and non-cancellable per our waiver. Emergency accommodations handled case-by-case.</p>
+        </div>
+        <div class="policy-card">
+          <p class="policy-card__title">Installment Plans</p>
+          <p class="policy-card__text">Available for 4 &amp; 8 session packages and all Day Training programs. A 1.5% processing fee applies. $50 late fee for payments more than 24 hours past the invoice date.</p>
+        </div>
+      </div>
+      <div style="margin-top:32px; max-width:440px;">
+        <p style="font-family:var(--dp-font-sub); font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--dp-text-muted); margin-bottom:12px;">Out-of-Area Travel Fee — Private Training</p>
+        <table class="travel-table">
+          <thead><tr><th>Distance from Facility</th><th>Fee</th></tr></thead>
+          <tbody>
+            <tr><td>Under 15 minutes</td><td>No charge</td></tr>
+            <tr><td>Under 30 minutes</td><td>$25</td></tr>
+            <tr><td>Under 45 minutes</td><td>$50</td></tr>
+            <tr><td>Under 60 minutes</td><td>$75</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px; color:var(--dp-text-muted); margin-top:10px; line-height:1.5;">Day Training programs include travel up to 30 minutes. Additional travel calculated at time of purchase.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ════ CTA BAND ════ -->
+<section class="dp-cta-band dp-cta-band--naval">
+  <div class="dp-container--narrow">
+    <h2 class="dp-cta-band__title">Not Sure Where to Start?</h2>
+    <p class="dp-cta-band__body">Every client begins with a free 15-minute Discovery Screening. We'll help you figure out which service fits your dog, your goals, and your life.</p>
+    <div class="dp-cta-band__actions">
+      <a href="/onboarding-services" class="dp-btn dp-btn--accent dp-btn--lg">Book a Free Screening</a>
+      <a href="/contact" class="dp-btn dp-btn--ghost-light dp-btn--lg">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- .dp-page -->
+
+<script>
+const sections = [
+  { id: 'private',    nav: 'nav-private' },
+  { id: 'day',        nav: 'nav-day' },
+  { id: 'comparison', nav: 'nav-comparison' },
+  { id: 'policies',   nav: 'nav-policies' },
+];
+
+function updateNav() {
+  const navH = document.getElementById('sticky-nav').offsetHeight;
+  let active = sections[0].nav;
+  for (const s of sections) {
+    const el = document.getElementById(s.id);
+    if (!el) continue;
+    if (el.getBoundingClientRect().top <= navH + 48) active = s.nav;
+  }
+  document.querySelectorAll('.sticky-nav__link').forEach(l => l.classList.remove('active'));
+  const el = document.getElementById(active);
+  if (el) el.classList.add('active');
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const navH = document.getElementById('sticky-nav').offsetHeight;
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navH - 6, behavior: 'smooth' });
+  });
+});
+
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+</script>
+</body>
+</html>
